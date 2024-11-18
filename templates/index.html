@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Garbage Detection System</title>
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js for rendering statistics charts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="../../static/css/style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <nav class="nav">
+            <!-- Logo and Title -->
+            <div class="logo">
+                <i class="fas fa-recycle fa-2x"></i>
+                <h1>Smart Garbage Detection System</h1>
+            </div>
+            <!-- System Status Indicators -->
+            <div class="status-container">
+                <!-- System Active Status -->
+                <div class="status-indicator">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span id="statusText">System Active</span>
+                </div>
+                <!-- Recording Status -->
+                <div class="status-indicator" id="recordingStatus" style="display: none;">
+                    <div class="status-dot recording-dot"></div>
+                    <span>Recording</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Video Section -->
+        <div class="video-section">
+            <div class="video-container">
+                <!-- Placeholder for live video feed -->
+                <img src="{{ url_for('video_feed') }}" alt="Live Video Feed" id="video-feed">
+            </div>
+            <!-- Controls for capturing and recording -->
+            <div class="controls">
+                <button class="btn btn-primary" id="captureBtn">
+                    <i class="fas fa-camera"></i>
+                    Capture Screenshot
+                </button>
+                <button class="btn btn-record" id="recordBtn">
+                    <i class="fas fa-video"></i>
+                    Start Recording
+                </button>
+                <button class="btn btn-secondary" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics Panel -->
+        <div class="stats-panel">
+            <h2>Detection Statistics</h2>
+            <!-- Cards for basic statistics -->
+            <div class="stat-card">
+                <div class="stat-title">Objects Detected</div>
+                <div class="stat-value" id="totalDetections">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Detection Accuracy</div>
+                <div class="stat-value" id="avgConfidence">0%</div>
+            </div>
+            <!-- Chart to display detection trends -->
+            <div class="chart-container">
+                <canvas id="detectionChart"></canvas>
+            </div>
+            <!-- List of recent detections -->
+            <div class="detection-list">
+                <h3>Recent Detections</h3>
+                <div id="detectionHistory"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <!-- Settings Form -->
+            <form class="settings-form" id="settingsForm">
+                <!-- Confidence Threshold Slider -->
+                <div class="form-group">
+                    <label for="confidenceThreshold">Confidence Threshold</label>
+                    <input type="range" id="confidenceThreshold" min="0" max="100" value="30">
+                    <span id="confidenceValue">30%</span>
+                </div>
+                <!-- Target Classes Configuration -->
+                <div class="form-group">
+                    <label for="targetClasses">Target Classes</label>
+                    <div id="targetClassesContainer"></div>
+                </div>
+                <!-- Save Button -->
+                <button type="submit" class="btn btn-primary">Save Settings</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Link to external JavaScript file -->
+    <script src="../static/script/script.js"></script>
+</body>
+</html>
